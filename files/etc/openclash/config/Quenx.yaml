@@ -19,7 +19,7 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '100'
+      interval: '50'
 proxy-groups:
 - name: Auto-ID_MIX
   type: fallback
@@ -66,12 +66,6 @@ proxy-groups:
   - Server-UMUM
   - REJECT
 rule-providers:
-  Oisd_big:
-    type: http
-    behavior: classical
-    path: ./rule_provider/oisd_big.yaml
-    url: https://raw.githubusercontent.com/hillz2/openclash_adblock/main/oisd_big.yaml
-    interval: 28800 # Update Rules Setiap 8 Jam
   Game:
     type: file
     behavior: classical
@@ -105,7 +99,6 @@ rule-providers:
     behavior: domain
     path: ./rule_provider/meta.yaml
 rules:
-- RULE-SET,Oisd_big,IKLAN
 - RULE-SET,Game,Server-GAME
 - RULE-SET,indo,Server-INDO
 - RULE-SET,Sosmed,Server-INDO
@@ -118,5 +111,21 @@ rules:
 - MATCH,Server-UMUM
 dns:
   proxy-server-nameserver:
-  - 112.215.198.248
-  - 112.215.198.254
+  - dhcp://"eth1" # Sesuaikan dengan Modemmu
+  - 192.168.42.129 # Sesuaikan Ip Modemmu
+  nameserver:
+    - 1.1.1.1
+    - 1.0.0.1
+    - https://dns.cloudflare.com/dns-query
+  fallback:
+    - 8.8.8.8
+    - 8.8.4.4
+    - https://dns.google/dns-query
+ntp:
+  servers:
+    - pool.ntp.org
+    - id.pool.ntp.org
+    - time.google.com
+  option:
+    maxpoll: 6
+    minpoll: 3
