@@ -44,17 +44,9 @@ uci set network.MODEM=interface
 uci set network.MODEM.proto='dhcp'
 uci set network.MODEM.device='wwan0'
 uci set network.MODEM.metric='15'
-uci set network.MM=interface
-uci set network.MM.proto='modemmanager'
-uci set network.MM.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb2/2-1'
-uci set network.MM.apn='internet'
-uci set network.MM.auth='none'
-uci set network.MM.iptype='ipv4'
-uci set network.MM.signalrate='10'
-uci set network.MM.metric='20'
 uci -q delete network.wan6
 uci commit network
-uci set firewall.@zone[1].network='WAN WAN2 MODEM MM'
+uci set firewall.@zone[1].network='WAN WAN2 MODEM'
 uci commit firewall
 
 # configure ipv6
@@ -119,12 +111,6 @@ uci set ttyd.@ttyd[0].command='/bin/bash --login' && uci commit
 # remove huawei me909s usb-modeswitch
 sed -i -e '/12d1:15c1/,+5d' /etc/usb-mode.json
 
-# remove dw5821e usb-modeswitch
-sed -i -e '/413c:81d7/,+5d' /etc/usb-mode.json
-
-# Disable /etc/config/xmm-modem
-uci set xmm-modem.@xmm-modem[0].enable='0' && uci commit
-
 # Setting Tinyfm
 ln -s / /www/tinyfm/rootfs
 
@@ -133,14 +119,14 @@ chmod +x /root/install2.sh
 bash /root/install2.sh
 
 # remove
-rm -rf /www/luci-static/resources/view/status/include/25_storage.js
+rm -f /www/luci-static/resources/view/status/include/25_storage.js
+rm -rf /usr/lib/ModemManager
 # setup misc settings
 echo "setup misc settings"
 sed -i 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' /etc/profile
 sed -i 's/\[ -n "$FAILSAFE" \] && cat \/etc\/banner.failsafe/& || \/usr\/bin\/idz/' /etc/profile
 chmod -R +x /sbin
 chmod -R +x /usr/bin
-chmod +x /usr/lib/ModemManager/connection.d/10-report-down
 
 # netdata
 mv /usr/share/netdata/web/lib/jquery-3.6.0.min.js /usr/share/netdata/web/lib/jquery-2.2.4.min.js
