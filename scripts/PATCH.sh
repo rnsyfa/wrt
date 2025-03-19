@@ -14,15 +14,15 @@ init_environment() {
 # Apply distribution-specific patches
 apply_distro_patches() {
     case "${BASE}" in
-        "openwrt")
+         "openwrt")
             log "INFO" "Applying OpenWrt specific patches"
             ;;
-        "immortalwrt")
+         "immortalwrt")
             log "INFO" "Applying ImmortalWrt specific patches"
             # Remove redundant default packages
             sed -i "/luci-app-cpufreq/d" include/target.mk
             ;;
-        *)
+         *)
             log "INFO" "Unknown distribution: ${BASE}"
             ;;
     esac
