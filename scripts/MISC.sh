@@ -13,7 +13,7 @@ setup_base_config() {
     # Update date in init settings
     sed -i "s/Ouc3kNF6/${DATE}/g" files/etc/uci-defaults/99-init-settings.sh
     
-    case "${BASE}}" in
+    case "${BASE}" in
         "openwrt")
             log "INFO" "Configuring OpenWrt specific settings"
             sed -i '/# setup misc settings/ a\mv \/www\/luci-static\/resources\/view\/status\/include\/29_temp.js \/www\/luci-static\/resources\/view\/status\/include\/17_temp.js' files/etc/uci-defaults/99-init-settings.sh
