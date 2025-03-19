@@ -63,7 +63,7 @@ configure_amlogic() {
 	    sed -i "s|CONFIG_TARGET_ROOTFS_SQUASHFS=.*|# CONFIG_TARGET_ROOTFS_SQUASHFS is not set|g" .config
             sed -i "s|CONFIG_TARGET_IMAGES_GZIP=.*|# CONFIG_TARGET_IMAGES_GZIP is not set|g" .config
 	    ;;
-        *)
+         *)
             log "INFO" "system type: ${TYPE}"
             ;;
     esac
