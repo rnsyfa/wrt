@@ -25,6 +25,7 @@ on:
           - X86-64
           - Nanopi-r2s
           - Nanopi-r5s
+          - Orangepi R1 Plus LTS
       tunnel:
         description: "Select VPN Client app:"
         required: true
@@ -83,7 +84,8 @@ jobs:
               "Raspberry Pi 4B",
               "X86-64",
               "Nanopi-r2s",
-              "Nanopi-r5s"
+              "Nanopi-r5s",
+              "Orangepi R1 Plus LTS"
             ]
           }
           EOJ
@@ -305,6 +307,14 @@ jobs:
               ;;
             "Firefly_Roc-RK3328")
               echo "PROFILE=firefly_roc-rk3328" >> $GITHUB_ENV
+              echo "TARGET_SYSTEM=rockchip/armv8" >> $GITHUB_ENV
+              echo "TARGET_NAME=rockchip-armv8" >> $GITHUB_ENV
+              echo "ARCH_1=armv8" >> $GITHUB_ENV
+              echo "ARCH_2=aarch64" >> $GITHUB_ENV
+              echo "ARCH_3=aarch64_cortex-a53" >> $GITHUB_ENV
+              ;;
+            "Orangepi R1 Plus LTS")
+              echo "PROFILE=xunlong_orangepi-r1-plus-lts" >> $GITHUB_ENV
               echo "TARGET_SYSTEM=rockchip/armv8" >> $GITHUB_ENV
               echo "TARGET_NAME=rockchip-armv8" >> $GITHUB_ENV
               echo "ARCH_1=armv8" >> $GITHUB_ENV
